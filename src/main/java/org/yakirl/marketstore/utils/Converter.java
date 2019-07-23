@@ -14,11 +14,18 @@ public class Converter {
 	
 	ByteOrder defaultOrder = ByteOrder.LITTLE_ENDIAN;
 	
-	Map<String, Integer> typeSizes = new HashMap<String, Integer>() {{
+	private Map<String, Integer> typeSizes = new HashMap<String, Integer>() {{
 		put("int", 4);
 		put("long", 8);
 		put("float", 4);
 		put("double", 8);
+	}};
+	
+	public Map<String, String> typeConverter = new HashMap<String, String>() {{
+		put("int", "i4");
+		put("long", "i8");
+		put("float", "f4");
+		put("double", "f8");				
 	}};
 	
 	public byte[] toByteArray(Object arr) throws Exception {

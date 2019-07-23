@@ -104,12 +104,11 @@ public class JClientTest {
 		try {
 			WriteRequest badRequest = new WriteRequest(symbol + "/1Min/OHLCV", 2);			
 			client.write(badRequest);
-			throw new Exception("expected server error");
+			throw new Exception("expected server error - no data");
 		} catch(Exception e) {
 		}
 		
 		WriteRequest writeRequest = new WriteRequest(symbol + "/1Min/OHLCV", 3);
-		// writeRequest.addDataColum("Epoch", epochs);
 		writeRequest.addDataColum("Open", opens);
 		try {
 			client.write(writeRequest);

@@ -13,11 +13,11 @@ public class WriteRequest extends Request {
 
 	private int length;
 	private String tbk;
-	// private Map<String, Object> dataset = new HashMap<String, Object>();
 	private List<byte[]> dataList;
 	private List<String> names;
 	private List<String> types;
-	private Map<String, String> typeConverter; 
+	private Converter converter;
+	
 	
 	public WriteRequest(String tbk, int numOfRecords) {
 		super("Write");
@@ -27,12 +27,7 @@ public class WriteRequest extends Request {
 		dataList = new ArrayList<byte[]>();
 		names = new ArrayList<String>();
 		types = new ArrayList<String>();
-		typeConverter = new HashMap<String, String>() {{
-				put("int", "i4");
-				put("long", "i8");
-				put("float", "f4");
-				put("double", "f8");				
-		}};
+		converter = new Converter();
 	}
 	
 	public void addDataColum(String name, Object col) throws Exception {
@@ -44,11 +39,10 @@ public class WriteRequest extends Request {
 			throw new Exception(String.format("size of array %d differnts from initialized size  %d",
 					Array.getLength(col), length));
 		}
-		Converter converter = new Converter();
 		dataList.add(converter.toByteArray(col));
 		names.add(name);
 		Class<?> _type = col.getClass().getComponentType();
-		types.add(typeConverter.get(_type.getCanonicalName()));
+		types.add(converter.typeConverter.get(_type.getCanonicalName()));
 	}
 	
 	private byte[][] convertData(List<byte[]> dataList) {
