@@ -9,9 +9,9 @@ public class QueryRequest {
 	private String tbk;
 	// private Map<String, Object> dataset = new HashMap<String, Object>();
 	private Map<String, String> typeConverter;
-	long epochStart;
-	long epochEnd;
-	int limit;
+	Long epochStart;
+	Long epochEnd;
+	Integer limit;
 	boolean limitFromStart;
 	
 	public QueryRequest(String[] symbols, String timeframe, String attrGroup) {
@@ -42,6 +42,7 @@ public class QueryRequest {
 				
 		Map<String, Object> req = new HashMap<String, Object>();
 		req.put("destination", tbk);
+		
 		req.put("epoch_start", epochStart);
 		req.put("epoch_end", epochEnd);
 		req.put("limit_record_count", limit);

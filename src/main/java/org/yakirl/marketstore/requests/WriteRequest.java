@@ -6,10 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import java.nio.ByteOrder;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.nio.LongBuffer;
+import org.yakirl.marketstore.utils.Converter;
+
 
 public class WriteRequest {
 
@@ -42,34 +40,13 @@ public class WriteRequest {
 		}
 		int _length = Array.getLength(col);
 		if (_length != length) {
-			throw new Exception(String.format("size of array %d differnts from initialized size  %d", Array.getLength(col), length));
+			throw new Exception(String.format("size of array %d differnts from initialized size  %d",
+					Array.getLength(col), length));
 		}
-		Class<?> _type = col.getClass().getComponentType();
-		
-        if (int.class.isAssignableFrom(_type)) {       
-	        ByteBuffer byteBuffer1 = ByteBuffer.allocate(length * 4);
-	        byteBuffer1.order(ByteOrder.LITTLE_ENDIAN);
-	        byteBuffer1.asIntBuffer().put((int[])col);	        	       
-	        dataList.add(byteBuffer1.array());
-        } else if (long.class.isAssignableFrom(_type)) {
-        	ByteBuffer byteBuffer1 = ByteBuffer.allocate(length * 8);
-	        byteBuffer1.order(ByteOrder.LITTLE_ENDIAN);
-	        byteBuffer1.asLongBuffer().put((long[])col);	        	       
-	        dataList.add(byteBuffer1.array());
-        } else if (float.class.isAssignableFrom(_type)) {
-        	ByteBuffer byteBuffer1 = ByteBuffer.allocate(length * 4);
-	        byteBuffer1.order(ByteOrder.LITTLE_ENDIAN);
-	        byteBuffer1.asFloatBuffer().put((float[])col);	        	       
-	        dataList.add(byteBuffer1.array());
-        } else if (double.class.isAssignableFrom(_type)) {
-        	ByteBuffer byteBuffer1 = ByteBuffer.allocate(length * 8);
-	        byteBuffer1.order(ByteOrder.LITTLE_ENDIAN);
-	        byteBuffer1.asDoubleBuffer().put((double[])col);	        	       
-	        dataList.add(byteBuffer1.array());
-        } else {
-        	throw new Exception(String.format("got array of unsupported type %s", _type));
-        }
+		Converter converter = new Converter();
+		dataList.add(converter.toByteArray(col));
 		names.add(name);
+		Class<?> _type = col.getClass().getComponentType();
 		types.add(typeConverter.get(_type.getCanonicalName()));
 	}
 	

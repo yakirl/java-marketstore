@@ -6,6 +6,7 @@ import java.net.ProtocolException;
 import java.util.Map;
 
 import org.yakirl.marketstore.requests.*;
+import org.yakirl.marketstore.responses.QueryResponse;
 
 public class JClient {
 	
@@ -16,11 +17,11 @@ public class JClient {
 		Map<String, Object> res = proxy.receive();		
 	}
 	
-	public Map<String, Object> query(QueryRequest req) throws ProtocolException, IOException {
+	public QueryResponse query(QueryRequest req) throws Exception {
 		Transport transport = new Transport();
 		Proxy proxy = new Proxy(transport);
 		proxy.send(req.getAsMap());
 		Map<String, Object> res = proxy.receive();
-		return res;
+		return QueryResponse.loadFromMap(res);
 	}
 }

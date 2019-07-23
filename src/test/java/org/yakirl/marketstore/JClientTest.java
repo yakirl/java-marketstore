@@ -7,11 +7,11 @@ import org.junit.Test;
 import org.yakirl.marketstore.JClient;
 import org.yakirl.marketstore.requests.QueryRequest;
 import org.yakirl.marketstore.requests.WriteRequest;
+import org.yakirl.marketstore.responses.QueryResponse;
 import org.junit.Before;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 
-import java.util.Map;
 
 
 public class JClientTest {
@@ -28,26 +28,36 @@ public class JClientTest {
     	LOG.info("tearDown test");
     }   
         
-	// @Test
-	public void testBasicWrite() throws Exception {
+	@Test
+	public void testBasicWriteQuery() throws Exception {
 		JClient client = new JClient();	
 		long[] epochs = {1563887580L, 1563887640L, 1563887700L};
 		float[] opens = {12.5f, 44.4f, 21.6f};
-		float[] closes = {11.1f, 50.0f, 6.2f};	
-		WriteRequest req = new WriteRequest("HPE/1Min/OHLCV", 3);
-		req.addDataColum("Epoch", epochs);
-		req.addDataColum("Open", opens);
-		req.addDataColum("Close", closes);
-		client.write(req);
-	}
-	
-	@Test
-	public void testBasicQuery() throws Exception {
-		JClient client = new JClient();		
-		//QueryRequest req = new QueryRequest({"HPE"}, "1Min", "OHLCV");
-		String[] symbols = {"HPE"};
+		float[] closes = {11.1f, 50.0f, 6.2f};
+		String symbol = "TEST";
+		WriteRequest writeRequest = new WriteRequest(symbol + "/1Min/OHLCV", 3);
+		writeRequest.addDataColum("Epoch", epochs);
+		writeRequest.addDataColum("Open", opens);
+		writeRequest.addDataColum("Close", closes);
+		client.write(writeRequest);
+		
+		String[] symbols = {symbol};
 		QueryRequest req = new QueryRequest(symbols, "1Min", "OHLCV");
-		Map<String, Object> res = client.query(req);
-		LOG.info(res.toString());
+		QueryResponse res = client.query(req);
+
+		long[] epochsRes = (long[])res.data()[0];
+		int i; for (i = 0; i < epochsRes.length; i++) {
+			assertEquals(epochsRes[i], epochs[i]);
+		}
+		
+		float[] opensRes = (float[])res.data()[1];
+		for (i = 0; i < opensRes.length; i++) {
+			assertEquals(opensRes[i], opens[i], 0.001);
+		}
+		
+		float[] closesRes = (float[])res.data()[2];
+		for (i = 0; i < closesRes.length; i++) {
+			assertEquals(closesRes[i], closes[i], 0.001);
+		}
 	}
 }
