@@ -9,7 +9,7 @@ import java.util.Map;
 import org.yakirl.marketstore.utils.Converter;
 
 
-public class WriteRequest {
+public class WriteRequest extends Request {
 
 	private int length;
 	private String tbk;
@@ -20,6 +20,7 @@ public class WriteRequest {
 	private Map<String, String> typeConverter; 
 	
 	public WriteRequest(String tbk, int numOfRecords) {
+		super("Write");
 		this.tbk = tbk;
 		length = numOfRecords;
 		names = new ArrayList<String>();
@@ -58,7 +59,7 @@ public class WriteRequest {
 		return data;
 	}
 	
-	public Map<String, Object> getAsMap() {
+	public Map<String, List<Map<String, Object>>> getParams() {
 
 		byte[][] data = convertData(dataList);
 		Map<String, Object> dataset = new HashMap<String, Object>();
@@ -79,12 +80,6 @@ public class WriteRequest {
 		Map<String, List<Map<String, Object>>> params = new HashMap<String, List<Map<String, Object>>>();
 		params.put("requests", requests);
 		
-		Map<String, Object> map  = new HashMap<String, Object>();;
-		map.put("id", "1");
-		map.put("jsonrpc", "2.0");
-		map.put("method", "DataService.Write");	
-		map.put("params", params);	
-		System.out.println(map.toString());
-		return map;
+		return params;
 	}
 }

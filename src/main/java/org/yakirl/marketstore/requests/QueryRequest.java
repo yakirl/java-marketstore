@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class QueryRequest {
+public class QueryRequest extends Request {
 	private String tbk;
 	// private Map<String, Object> dataset = new HashMap<String, Object>();
 	private Map<String, String> typeConverter;
@@ -15,6 +15,7 @@ public class QueryRequest {
 	boolean limitFromStart;
 	
 	public QueryRequest(String[] symbols, String timeframe, String attrGroup) {
+		super("Query");
 		tbk = String.format("%s/%s/%s", String.join(",", symbols), timeframe, attrGroup);		
 	}
 	
@@ -38,7 +39,7 @@ public class QueryRequest {
 		return this;
 	}
 	
-	public Map<String, Object> getAsMap() {
+	public Map<String, List<Map<String, Object>>> getParams() {
 				
 		Map<String, Object> req = new HashMap<String, Object>();
 		req.put("destination", tbk);
@@ -54,12 +55,6 @@ public class QueryRequest {
 		Map<String, List<Map<String, Object>>> params = new HashMap<String, List<Map<String, Object>>>();
 		params.put("requests", requests);
 		
-		Map<String, Object> map  = new HashMap<String, Object>();;
-		map.put("id", "1");
-		map.put("jsonrpc", "2.0");
-		map.put("method", "DataService.Query");	
-		map.put("params", params);	
-		System.out.println(map.toString());
-		return map;
+		return params;
 	}
 }
