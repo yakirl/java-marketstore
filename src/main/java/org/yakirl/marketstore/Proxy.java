@@ -32,7 +32,6 @@ public class Proxy {
 	    InputStream is = transport.getInStream();
 	    ObjectMapper mapper = new ObjectMapper(new MessagePackFactory());
 	    Map<String, Object> jsonMap = mapper.readValue(is, Map.class);
-	    System.out.println(jsonMap.toString());
 	    return jsonMap;
 	}
 }

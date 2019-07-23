@@ -18,6 +18,12 @@ public class JClient {
 		return QueryResponse.loadFromMap(exec(req));
 	}
 	
+	public void destroy(String tbk) throws ProtocolException, IOException {
+		Map<String, Object> res = exec((new DestroyRequest(tbk)));
+		Map<String, Object> mainResult = (Map<String, Object>)res.get("result");
+		System.out.println(mainResult);
+	}
+	
 	public List<String> listSymbols() throws Exception {			
 		Map<String, Object> res = exec((new Request("ListSymbols")));
 		Map<String, Object> mainResult = (Map<String, Object>)res.get("result");
