@@ -1,2 +1,3 @@
 main INFO  marketstore.JClientTest - setUp test
+main INFO  marketstore.JClientTest - {jsonrpc=2.0, result={responses=[{result={types=[i8, f4, f4], names=[Epoch, Open, Close], data=[[B@6b2ea799, [B@411f53a0, [B@2b71e916], length=0, startindex={HPE/1Min/OHLCV:Symbol/Timeframe/AttributeGroup=0}, lengths={HPE/1Min/OHLCV:Symbol/Timeframe/AttributeGroup=0}}}], version=e90355c332e9e145afdc7618732b870deb065e9a, timezone=UTC}, id=1}
 main INFO  marketstore.JClientTest - tearDown test

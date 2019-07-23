@@ -15,4 +15,12 @@ public class JClient {
 		proxy.send(req.getAsMap());
 		Map<String, Object> res = proxy.receive();		
 	}
+	
+	public Map<String, Object> query(QueryRequest req) throws ProtocolException, IOException {
+		Transport transport = new Transport();
+		Proxy proxy = new Proxy(transport);
+		proxy.send(req.getAsMap());
+		Map<String, Object> res = proxy.receive();
+		return res;
+	}
 }
