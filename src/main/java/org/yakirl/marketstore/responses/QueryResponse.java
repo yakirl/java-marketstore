@@ -8,10 +8,11 @@ import java.util.Map;
 import org.yakirl.marketstore.utils.Converter;
 
 public class QueryResponse {
-	Object[] data;
-	String timezone;
-	List<String> types;
-	List<String> names;
+	private Object[] data;
+	private String timezone;
+	private List<String> types;
+	private List<String> names;
+	private Error err;
 	
 	public QueryResponse() {		
 	}
@@ -32,15 +33,23 @@ public class QueryResponse {
 		return timezone;
 	}
 	
+	public Error err() {
+		return err;
+	}
+	
 	public static QueryResponse loadFromMap(Map<String, Object> map) throws Exception {
 		QueryResponse res = new QueryResponse();
+		res.err = Error.processResponse(map);
+		if (res.err != null) {
+			return res;
+		}
 		Map<String, Object> mainResult = (Map<String, Object>)map.get("result");
 		res.timezone = (String)mainResult.get("timezone");
 		Map<String, Object> resultDict = ((List<? extends Map<String, Object>>) mainResult.get("responses")).get(0);
 		Map<String, Object> result = (Map<String, Object>)resultDict.get("result");
 		res.types = (List<String>) result.get("types");
 		res.names = (List<String>) result.get("names");
-		//byte[][] dataBytes = (byte[][])result.get("data");
+
 		List<byte[]> dataBytes = (List<byte[]>)result.get("data");
 		
 		Converter converter = new Converter();	

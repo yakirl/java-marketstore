@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.yakirl.marketstore.utils.*;
+
 public class QueryRequest extends Request {
 	private String tbk;
 	// private Map<String, Object> dataset = new HashMap<String, Object>();
@@ -16,7 +18,7 @@ public class QueryRequest extends Request {
 	
 	public QueryRequest(String[] symbols, String timeframe, String attrGroup) {
 		super("Query");
-		tbk = String.format("%s/%s/%s", String.join(",", symbols), timeframe, attrGroup);		
+		tbk = Common.tbks(symbols, timeframe, attrGroup);		
 	}
 	
 	public QueryRequest epochStart(long epochStart) {

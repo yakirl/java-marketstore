@@ -7,7 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.yakirl.marketstore.utils.Converter;
+import org.yakirl.marketstore.utils.Common;
 
+/***
+ * @author yakir
+ *
+ * Write Request contains all the data and metadata to be sent to MarketStore.
+ * Data is structured in Object[] which must contains only arrays of the supported primitive types.
+ * Note: we cant support List<T> since ByteBuffer, which used to convert to byte array, supports only arrays.
+ * 	 DataOutputStream cannot be used since it writes as BIG_ENDIAN and cannot be changed.
+ */
 
 public class WriteRequest extends Request {
 
@@ -18,10 +27,9 @@ public class WriteRequest extends Request {
 	private List<String> types;
 	private Converter converter;
 	
-	
-	public WriteRequest(String tbk, int numOfRecords) {
+	public WriteRequest(String symbol, String timeframe, String attrGroup, int numOfRecords) {
 		super("Write");
-		this.tbk = tbk;
+		this.tbk = Common.tbk(symbol, timeframe, attrGroup);
 		length = numOfRecords;
 		names = new ArrayList<String>();
 		dataList = new ArrayList<byte[]>();

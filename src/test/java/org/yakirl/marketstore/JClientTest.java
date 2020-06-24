@@ -43,7 +43,7 @@ public class JClientTest {
 		String symbol = RandomStringUtils.random(4, true, false);
 		
 		// write
-		WriteRequest writeRequest = new WriteRequest(symbol + "/1Min/OHLCV", 3);
+		WriteRequest writeRequest = new WriteRequest(symbol, "1Min", "OHLCV", 3);
 		writeRequest.addDataColum("Epoch", epochs);
 		writeRequest.addDataColum("Open", opens);
 		writeRequest.addDataColum("Close", closes);
@@ -95,20 +95,20 @@ public class JClientTest {
 		String symbol = RandomStringUtils.random(4, true, false);		
 		
 		try {
-			WriteRequest badRequest = new WriteRequest(symbol + "/1Min/OHLCV", 2);
+			WriteRequest badRequest = new WriteRequest(symbol, "1Min", "OHLCV", 2);
 			badRequest.addDataColum("Epoch", epochs);
 			throw new Exception("expected bad array size excpetion");
 		} catch(Exception e) {
 		}
 		
 		try {
-			WriteRequest badRequest = new WriteRequest(symbol + "/1Min/OHLCV", 2);			
+			WriteRequest badRequest = new WriteRequest(symbol, "1Min", "OHLCV", 2);			
 			client.write(badRequest);
 			throw new Exception("expected server error - no data");
 		} catch(Exception e) {
 		}
 		
-		WriteRequest writeRequest = new WriteRequest(symbol + "/1Min/OHLCV", 3);
+		WriteRequest writeRequest = new WriteRequest(symbol, "1Min", "OHLCV", 3);
 		writeRequest.addDataColum("Open", opens);
 		try {
 			client.write(writeRequest);

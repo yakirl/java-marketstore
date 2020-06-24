@@ -7,11 +7,12 @@ import java.util.Map;
 
 import org.yakirl.marketstore.requests.*;
 import org.yakirl.marketstore.responses.QueryResponse;
+import org.yakirl.marketstore.responses.Error;
 
 public class JClient {
 	
-	public void write(WriteRequest req) throws ProtocolException, IOException {
-		exec(req);		
+	public void write(WriteRequest req) throws Exception {
+		Error.processResponse(exec(req));		
 	}
 	
 	public QueryResponse query(QueryRequest req) throws Exception {
@@ -35,6 +36,7 @@ public class JClient {
 		Proxy proxy = new Proxy(transport);
 		proxy.send(req.getMapping());
 		Map<String, Object> res = proxy.receive();
+		System.out.println(res);
 		return res;
 	}
 }
