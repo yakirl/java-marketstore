@@ -5,11 +5,16 @@ import java.net.ProtocolException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.yakirl.marketstore.requests.*;
 import org.yakirl.marketstore.responses.QueryResponse;
 import org.yakirl.marketstore.responses.Error;
 
 public class JClient {
+
+	protected static final Logger LOG = LogManager.getLogger(JClient.class);
 	
 	public void write(WriteRequest req) throws Exception {
 		Error.processResponse(exec(req));		
@@ -22,7 +27,6 @@ public class JClient {
 	public void destroy(String tbk) throws ProtocolException, IOException {
 		Map<String, Object> res = exec((new DestroyRequest(tbk)));
 		Map<String, Object> mainResult = (Map<String, Object>)res.get("result");
-		System.out.println(mainResult);
 	}
 	
 	public List<String> listSymbols() throws Exception {			
@@ -36,7 +40,7 @@ public class JClient {
 		Proxy proxy = new Proxy(transport);
 		proxy.send(req.getMapping());
 		Map<String, Object> res = proxy.receive();
-		System.out.println(res);
+		LOG.debug(res);
 		return res;
 	}
 }

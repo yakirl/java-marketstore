@@ -1,4 +1,9 @@
 main INFO  marketstore.JClientTest - setUp test
+main DEBUG marketstore.JClient - {jsonrpc=2.0, result={responses=[{error=unexpected data type for Epoch column., version=65081d753325af39b0670927ca9d54e59524b868}]}, id=1}
 main INFO  marketstore.JClientTest - tearDown test
 main INFO  marketstore.JClientTest - setUp test
+main DEBUG marketstore.JClient - {jsonrpc=2.0, result={responses=null}, id=1}
+main DEBUG marketstore.JClient - {jsonrpc=2.0, result={Results=[vyIK, lrIM, AAPL, kwGQ, lnNS, DVmj, iFDE, IVoc, rGbt, ULSn, MNXz, AMD, MSFT, INTC, WboZ, lspD, YBAY, GOOG]}, id=1}
+main DEBUG marketstore.JClient - {jsonrpc=2.0, result={responses=[{result={types=[i8, f4, f4], names=[Epoch, Open, Close], data=[[B@1b065145, [B@45cff11c, [B@207ea13], length=3, startindex={rGbt/1Min/OHLCV:Symbol/Timeframe/AttributeGroup=0}, lengths={rGbt/1Min/OHLCV:Symbol/Timeframe/AttributeGroup=3}}}], version=65081d753325af39b0670927ca9d54e59524b868, timezone=UTC}, id=1}
+main DEBUG marketstore.JClient - {jsonrpc=2.0, result={responses=[{result={types=[i8, f4, f4], names=[Epoch, Open, Close], data=[[B@62dae540, [B@5827af16, [B@654d8173], length=1, startindex={rGbt/1Min/OHLCV:Symbol/Timeframe/AttributeGroup=0}, lengths={rGbt/1Min/OHLCV:Symbol/Timeframe/AttributeGroup=1}}}], version=65081d753325af39b0670927ca9d54e59524b868, timezone=UTC}, id=1}
 main INFO  marketstore.JClientTest - tearDown test

@@ -22,7 +22,6 @@ import java.util.List;
 public class JClientTest {
 
 	protected static final Logger LOG = LogManager.getLogger(JClientTest.class);
-    
 	@Before
     public void setUp() throws Exception {
     	LOG.info("setUp test");

@@ -22,7 +22,6 @@ public class Request {
 		map.put("jsonrpc", "2.0");
 		map.put("method", String.format("DataService.%s", operation));	
 		map.put("params", getParams());
-		System.out.println(map);
 		return map;
 	}
 
